@@ -1,0 +1,43 @@
+password recovery: Восстановление пароля
+new password: Новый пароль
+register: Зарегистрироваться
+login: Войти
+logout: Выйти
+forgot: Забыл пароль
+
+id: Идентификатор
+email: Электронная почта
+password: Пароль
+
+send email: Отправить на почту
+agree terms: Согласен с условиями
+
+users: Пользователи
+
+num_of_users: >-
+    {users, plural,
+            =0    {Нет пользователей}
+            one  {# пользователь}
+            few {# пользователя}
+            other {# пользователей}
+        }
+
+user list: Список пользователей
+roles: Роли
+role: Роль
+is active: Активен?
+activate: Активировать
+yes: Да
+no: Нет
+
+admin: Администратор
+manager: Менеджер
+small manager: Младший менеджер
+user: Пользователь
+
+sign:
+    in:
+        google: Зарегестрироваться с помощью аккаунта Google
+log:
+    in:
+        google: Войти с помощью аккаунта Google

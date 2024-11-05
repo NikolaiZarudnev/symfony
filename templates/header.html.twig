@@ -1,0 +1,144 @@
+{% from 'macros.html.twig' import trans_date, add_class as trans_date, add_class %}
+{{ encore_entry_link_tags('app') }}
+<div class="navbar navbar-expand-lg navbar-light" id="header" style="background-color: #e7e9ec">
+    <div class="header collapse navbar-collapse example-wrapper" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <a class="nav-link" href="{{ path('app_home') }}">
+                {{ 'home'|trans }}
+            </a>
+            <li class="nav-item dropdown">
+
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    {{ 'num_of_accounts'| trans({'{accounts}': count_accounts}) }}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="nav-link border-bottom {{ add_class(" active", parent_request.pathinfo == path('app_account')) }}"
+                       href="{{ path('app_account') }}"
+                    >
+                        {{ 'accounts list'|trans }}
+                    </a>
+                    <a class="nav-link border-bottom {{ add_class(" active", parent_request.pathinfo == path('app_account_create')) }}"
+                       href="{{ path('app_account_create') }}">
+                        {{ 'add'|trans }}
+                    </a>
+
+                    {% if(app.session.get('accountChangedId')) %}
+                        <a class="nav-link border-bottom {{ add_class(" active", parent_request.pathinfo == path('app_account_show', {id: app.session.get('accountChangedId')})) }}"
+                           href="{{ path('app_account_show', {id: app.session.get('accountChangedId')}) }}"
+                        >
+                            <span class="border-bottom">{{ 'changed.acc'|trans }}:<span>
+                            {{ 'session'|trans }}:
+                            {{ trans_date(app.session.get('changedDate'), parent_request.locale) }}
+                        </a>
+                    {% endif %}
+                    {% if(account) %}
+                        <a class="nav-link {{ add_class(" active", parent_request.pathinfo == path('app_account_show', {id: account.id})) }}"
+                           href="{{ path('app_account_show', {id: account.id}) }}"
+                        >
+                            <span class="border-bottom">{{ 'changed.acc'|trans }}:<span>
+                            {{ 'cache'|trans }}:
+                            {{ trans_date(account.createdAt, parent_request.locale) }}
+                        </a>
+                    {% endif %}
+                </div>
+            </li>
+            <a class="nav-link" href="{{ path('app_product') }}">
+                {{ 'products'|trans }}
+            </a>
+            <a class="nav-link" href="{{ path('app_order') }}">
+                {{ 'orders'|trans }}
+            </a>
+            <a class="nav-link" href="{{ path('app_cart') }}">
+                {{ 'cart'|trans }}<span id="header-cart-count-products"></span>
+            </a>
+            {% if is_granted('ROLE_ADMIN') %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        {{ 'num_of_users'| trans({'{users}': count_users}) }}
+                    </a>
+                    <div class="dropdown-menu border-bottom" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="nav-link {{ add_class(" active", parent_request.pathinfo == path('app_user')) }}"
+                           href="{{ path('app_user') }}">
+                            {{ 'user list'|trans }}
+                        </a>
+                        <a class="nav-link {{ add_class(" active", parent_request.pathinfo == path('app_user_create')) }}"
+                           href="{{ path('app_user_create') }}">
+                            {{ 'add'|trans }}
+                        </a>
+                    </div>
+                </li>
+
+                <form id="user-search" class="form-inline" method="POST" autocomplete="off"
+                      data-locale="{{ app.request.locale }}"
+                >
+                    <input type="search"
+                           class="form-control dropdown-toggle"
+                           id="user-search-input"
+                           name="_search"
+                           placeholder="{{ 'search'|trans }}"
+                           data-toggle="dropdown"
+                    >
+                    <ul id="search-result" class="dropdown-menu">
+                    </ul>
+                </form>
+
+
+            {% endif %}
+
+        </ul>
+    </div>
+    <a class="nav-link" href="{{ path('dashboard') }}">{{ 'admin.panel'|trans }}</a>
+    <div class="nav-item dropdown" style="margin-right: 40px">
+        <div class="nav-link dropdown-toggle" id="dropdown-language" role="button"
+             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ parent_request.locale|locale_name(parent_request.locale)|capitalize }}
+        </div>
+        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-language">
+            <li>
+
+                <a class="dropdown-item border-bottom " href="{{ path(parent_request.attributes.get('_route'),
+                    parent_request.attributes.get('_route_params')|merge({'_locale':'en'})) }}"
+                >
+                    {{ 'en'|locale_name('en')|capitalize }}
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="{{ path(
+                    parent_request.attributes.get('_route'),
+                    parent_request.attributes.get('_route_params')|merge({'_locale':'ru'})
+                ) }}">
+                    {{ 'ru'|locale_name('ru')|capitalize }}
+                </a>
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="nav-item" style="margin-right: 40px;">
+        {% if app.user %}
+            <a class="nav-link {{ add_class(" active", parent_request.pathinfo == path('app_security_logout')) }}"
+               href="{{ path('app_security_logout') }}">{{ 'logout'|trans }}</a>
+        {% else %}
+            <a class="nav-link {{ add_class(" active", parent_request.pathinfo == path('app_security_register')) }}"
+               href="{{ path('app_security_register') }}">{{ 'register'|trans }}</a>
+            <a class="nav-link {{ add_class(" active", parent_request.pathinfo == path('app_security_login')) }}"
+               href="{{ path('app_security_login') }}">{{ 'login'|trans }}</a>
+        {% endif %}
+    </div>
+
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+        integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+        integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+
+

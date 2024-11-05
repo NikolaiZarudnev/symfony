@@ -1,0 +1,36 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+{% block head_stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('app') }}
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+{% endblock %}
+{% block main %}
+
+    <div class="home-content-col" >
+        <div style="width: 800px;">
+            <canvas id="canvas_sales"></canvas>
+        </div>
+
+        <input id="daterange" type="text" name="daterange">
+
+        <div style="width: 800px;">
+            <canvas id="sales-2"></canvas>
+        </div>
+
+        <div style="width: 800px;">
+            <canvas id="sales-3"></canvas>
+        </div>
+    </div>
+
+
+    {{ encore_entry_script_tags('dashboard') }}
+    {{ encore_entry_script_tags('chart') }}
+
+{% endblock %}

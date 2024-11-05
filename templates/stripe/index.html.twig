@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello StripeController!{% endblock %}
+
+{% block body %}
+
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-body">
+                        {% for message in app.flashes('success') %}
+                            <div
+                                    style="color: green;
+                                    border: 2px green solid;
+                                    text-align: center;
+                                    padding: 5px;margin-bottom: 10px;">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+
+                        <form id='payment-form' method='post'>
+                            <label for="payment-element" class="mb-5">Checkout Forms</label>
+                            <br>
+                            <div id="payment-element" class="form-control"></div>
+
+                            <button
+                                    id='pay-btn'
+                                    class="btn btn-success mt-3"
+                                    type="submit"
+                                    style="margin-top: 20px; width: 100%;padding: 7px;"
+                                    >
+                                PAY ${{ amount / 100}}
+                            </button>
+                            <div id="error-message">
+                                <!-- Display error message to your customers here -->
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('stripe') }}
+{% endblock %}

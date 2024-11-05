@@ -1,0 +1,58 @@
+Symfony is great: Symfony is great
+
+accounts list: Accounts list
+accounts: Accounts
+account: Account
+
+num_of_accounts: >-
+    {accounts, plural,
+        =0 {There are no accounts}
+        one {1 account}
+        other {# accounts}
+    }
+
+account create: Account create
+account update: Account update
+account details: Account details
+photo: Photo
+owner: Owner
+image: Image
+
+changed:
+    acc: Last changed account
+
+id: Id
+first name: First name
+last name: Last name
+full name: Full name
+email: Email
+sex: Sex
+male: Male
+female: Female
+dont know: Dont know
+country: Country
+city: City
+address: Address
+street:
+    1: Street 1
+    2: Street 2
+    street: Street
+zip: ZIP
+company name: Company name
+position: Position
+
+add a phone: Add a phone
+delete this number: Delete this number
+phone numbers: Phones numbers
+phones: Phones
+number: Number
+created: Created at
+updated: Updated at
+
+
+
+notify:
+    account created: Account created
+    account updated: Account updated
+    account: Account
+    deleted at: deleted at

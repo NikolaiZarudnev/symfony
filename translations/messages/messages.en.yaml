@@ -1,0 +1,18 @@
+Symfony is great: Symfony is great
+
+session: Session
+cache: Cache
+
+search: Search
+submit: Submit
+create: Create
+update: Update
+add: Add
+show: Show
+edit: Edit
+delete: Delete
+
+download:
+    accounts:
+        csv: Download list of accounts .csv
+        pdf: Download list of accounts .pdf

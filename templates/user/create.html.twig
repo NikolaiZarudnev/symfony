@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+{% from 'macros.html.twig' import add_class_optional as add_class_optional %}
+
+{% block body %}
+    <div class="example-wrapper">
+        <div id="flash-notice">
+        </div>
+        <form id="user_create" method="POST"
+              data-user-id="{{ userId ? userId}}"
+              data-locale="{{ app.request.locale }}"
+        >
+
+            <div class="mb-3">
+                <label for="email" class="form-label">{{ 'email'|trans }}</label>
+                <div class="error" id="email"></div>
+                <input type="email" class="form-control" id="email" name="_email" value="{{ user ? user.email }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">{{ 'password'|trans }}</label>
+                <div class="error" id="password"></div>
+                <input type="password" class="form-control" id="password" name="_password" value="">
+            </div>
+
+            <div class="mb-3">
+                <label for="role" class="form-label">{{ 'role'|trans }}</label>
+                <div class="error" id="role"></div>
+                <select id="role" name="_role">
+                    {% if user.roles|first %}
+                        <option disabled value="{{ user.roles|first }}" selected>{{ user.roles|first|role(user.roles|first)|lower|trans  }}</option>
+                    {% endif %}
+                    <option value="ROLE_ADMIN">{{ 'ROLE_ADMIN'|role('ROLE_ADMIN')|lower|trans }}</option>
+                    <option value="ROLE_MANAGER">{{ 'ROLE_MANAGER'|role('ROLE_MANAGER')|lower|trans }}</option>
+                    <option value="ROLE_SMALL_MANAGER">{{ 'ROLE_SMALL_MANAGER'|role('ROLE_SMALL_MANAGER')|lower|trans }}</option>
+                    <option value="ROLE_USER">{{ 'ROLE_USER'|role('ROLE_USER')|lower|trans }}</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="isActive" class="form-label">{{ 'activate'|trans }}</label>
+                <input type="checkbox" id="isActive" {{ user.isactive ? 'checked' }}/>
+            </div>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            <button type="submit" class="btn btn-primary">
+                {{ 'submit'|trans }}
+            </button>
+        </form>
+    </div>
+{% endblock %}

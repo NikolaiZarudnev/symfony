@@ -1,0 +1,16 @@
+{% trans_default_domain 'emails' %}
+{% block email %}
+    <h1>{{ 'template.welcome'|trans({}, "emails", user_locale) }} {{ username }}!</h1>
+
+    <p>
+        {{ 'template.signed.up'|trans({}, "emails", user_locale) }}:
+    </p>
+    <p><code>{{ email.to[0].address }}</code></p>
+    <h3>{{ 'subject.about.us'|trans({}, "emails", user_locale) }}</h3>
+    <p>{{ 'template.about.us.text'|trans({}, "emails", user_locale) }}</p>
+    <p>
+        <a href="{{ link }}">
+            {{ 'template.click.read.more'|trans({}, "emails", user_locale) }}
+        </a>
+    </p>
+{% endblock %}

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .table-separate table{
+            border-collapse: separate;
+        }
+
+        .table-body {
+            border-bottom: 2px black;
+            margin-bottom: 25px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="example-wrapper table-separate">
+    <h1>{{ 'accounts list'|trans }}:</h1>
+    <table class="table table-bordered table-condensed" style="text-align: left">
+        <thead></thead>
+        {% for account in accounts %}
+            <tbody class="table-body  {{ loop.index0 is odd ? 'user-row table-secondary' }}"
+                   style="border-bottom: 2px black;"
+            >
+            
+            <tr>
+                <th>{{ 'account'|trans }}:</th>
+                <td colspan="3">{{ account.id }}</td>
+
+            </tr>
+            <tr>
+                <th>{{ 'created'|trans }}:</th>
+                <td>{{ account.createdAt|date('d-m-Y H:m:s') }}</td>
+                <th>{{ 'updated'|trans }}:</th>
+                <td>{{ account.updatedAt|date('d-m-Y H:m:s') }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'full name'|trans }}:</th>
+                <td>{{ account.fullName|capitalize }}</td>
+                <th>{{ 'email'|trans }}:</th>
+                <td>{{ account.email }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'company name'|trans }}:</th>
+                <td>{{ account.companyName|capitalize }}</td>
+                <th>{{ 'position'|trans }}:</th>
+
+                <td>{{ account.position|capitalize }}</td>
+            </tr>
+
+            {% if account.address %}
+                <tr>
+                    <th scope="row">{{ 'country'|trans }}:</th>
+                    {% if account.address.country %}
+                        <td>{{ account.address.country.name|capitalize }}</td>
+                    {% endif %}
+                    <th scope="row">{{ 'city'|trans }}:</th>
+                    {% if account.address.city %}
+                        <td>{{ account.address.city.name|capitalize }}</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <th scope="row">{{ 'street.street'|trans }}:</th>
+                    <td>{{ account.address.street|capitalize }}</td>
+                    <th scope="row">{{ 'zip'|trans }}:</th>
+                    <td>{{ account.address.zip }}</td>
+                </tr>
+            {% endif %}
+
+            <td colspan="4">
+            </tbody>
+
+        {% endfor %}
+    </table>
+</div>
+</body>
+</html>

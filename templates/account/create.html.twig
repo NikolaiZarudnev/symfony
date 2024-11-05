@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AccountController!{% endblock %}
+
+{% form_theme form './account/form.html.twig' %}
+{% block body %}
+    <div class="example-wrapper">
+
+        {% if app.current_route == 'app_account_create' %}
+            <h1>{{ 'account create'|trans }} ✅</h1>
+        {% else %}
+            <h1>{{ 'account update'|trans }} ✅</h1>
+            <h3>{{ 'photo'|trans }}</h3>
+            {% if account.image is defined %}
+                <img src="{{ asset(uploads_account_image ~ account.image) | imagine_filter('my_thumb') }}"
+                     alt="account avatar"/>
+            {% else %}
+                <img src="{{ asset(uploads_account_image ~ 'default.png') | imagine_filter('my_thumb') }}"/>
+            {% endif %}
+        {% endif %}
+        <div class="mb-3">
+            {{ form_start(form) }}
+            <div class="my-custom-class-for-errors">
+                {{ form_errors(form) }}
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    {{ form_row(form.firstName) }}
+                </div>
+                <div class="col">
+                    {{ form_row(form.lastName) }}
+                </div>
+                <div class="row">
+                    {{ form_row(form.email) }}
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(form.companyName) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(form.position) }}
+                    </div>
+                </div>
+                <div class="col">
+                    {{ form_row(form.sex) }}
+                </div>
+            </div>
+            <div class="phones"
+                 data-index="{{ form.phones|length > 0 ? form.phones|last.vars.name + 1 : 0 }}"
+                 data-prototype="{{ form_widget(form.phones.vars.prototype)|e('html_attr') }}"
+            >
+                {{ form_row(form.phones) }}
+                <div>
+                    <button type="button" class="add_item_link btn btn-outline-success"
+                            data-collection-holder-class="phones">
+                        {{ 'add a phone'|trans }}
+                    </button>
+                </div>
+            </div>
+
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

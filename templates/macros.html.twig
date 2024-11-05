@@ -1,0 +1,55 @@
+{% macro button_active(id, active) %}
+    <button type="button"
+            class="isActive btn {{ active ? 'btn-outline-success' : 'btn-outline-danger' }}"
+            id="userId-{{ id }}"
+            data-user-id="{{ id }}"
+    >
+        {% if active %}
+            {{ 'yes'|trans }}
+        {% else %}
+            {{ 'no'|trans }}
+        {% endif %}
+    </button>
+{% endmacro %}
+
+{% macro trans_date(date, locale) %}
+    {% set dateFormat = 'm-d-Y H:m:s' %}
+    {% if locale == 'ru' %}
+        {% set dateFormat = 'd-m-Y H:m:s' %}
+    {% endif %}
+
+    <p>{{ date|date(dateFormat) }}</p>
+{% endmacro %}
+
+{% macro set_class(class, cond) %}
+    {% if cond %}
+        class="{{ class }}"
+    {% endif %}
+{% endmacro %}
+
+{% macro add_class(class, cond) %}
+    {% if cond %}
+        {{ class }}
+    {% endif %}
+{% endmacro %}
+
+{% macro add_class_optional(class_1, class_2, cond) %}
+    {% if cond %}
+        {{ class_1 }}
+    {% else %}
+        {{ class_2 }}
+    {% endif %}
+{% endmacro %}
+
+{% macro order_status(status) %}
+{{ 'order.status'|trans }}:
+        {% if status is constant('App\\Entity\\Order::PAID') %}
+            <span style="color: green">{{ 'paid'|trans }}</span>
+        {% endif %}
+        {% if status is constant('App\\Entity\\Order::CANCELLED') %}
+            <span style="color: red">{{ 'cancelled'|trans }}</span>
+        {% endif %}
+        {% if status is constant('App\\Entity\\Order::PROCESSING') %}
+            <span style="color: #ff960c">{{ 'processing'|trans }}</span>
+        {% endif %}
+{% endmacro %}

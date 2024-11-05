@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Server error</h1>
+
+    <p>{{ status_code }}</p>
+    <p>{{ status_text }}</p>
+    <p>{{ exception.message }}</p>
+{% endblock %}

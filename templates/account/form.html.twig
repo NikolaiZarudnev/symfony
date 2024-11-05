@@ -1,0 +1,9 @@
+{% extends 'bootstrap_5_layout.html.twig' %}
+
+{%- block email_widget -%}
+    <div class="input-container">
+        <span class="unit">@</span>
+        {{ form_widget(form) }}
+    </div>
+
+{%- endblock email_widget -%}

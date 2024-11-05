@@ -1,0 +1,40 @@
+{% extends '@!EasyAdmin/layout.html.twig' %}
+
+{% block head_stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
+{% endblock %}
+
+{% block head_javascript %}
+    {{ parent() }}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+{% endblock head_javascript %}
+
+{% block flash_messages %}
+
+    {# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+    {# This template checks for 'ea' variable existence because it can
+   be used in a EasyAdmin Dashboard controller, where 'ea' is defined
+   or from any other Symfony controller, where 'ea' is not defined #}
+    {% trans_default_domain ea is defined ? ea.i18n.translationDomain : (translation_domain is defined ? translation_domain ?? 'messages') %}
+    {% if app.session is not null and app.session.started %}
+        {% set flash_messages = app.session.flashbag.all %}
+
+        {% if flash_messages|length > 0 %}
+            <div id="flash-messages">
+                {% for label, messages in flash_messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }}"
+                             data-message="{{ message|trans|raw }}"
+                             data-label="{{ label|trans|raw }}">
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+
+            {{ encore_entry_script_tags('dashboard') }}
+        {% endif %}
+
+    {% endif %}
+
+{% endblock flash_messages %}

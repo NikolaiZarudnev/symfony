@@ -1,0 +1,8 @@
+This code should not be reached!: Этот код не должен быть достигнут!
+User account is not activated.: Учетная запись пользователя не активирована.
+The given "{{ value }}" value is not a valid street.: Указанное значение "{{ value }}" не является допустимой улицей.
+
+No API token provided: Токен API не предоставлен
+
+invalid:
+    token: Недействительный токен

@@ -1,0 +1,33 @@
+{# templates/security/login.html.twig #}
+{% extends 'base.html.twig' %}
+
+{# ... #}
+{% block body %}
+    <div class="example-wrapper">
+        {% if error %}
+            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        <form action="{{ path('app_security_login') }}" method="POST">
+            <div class="mb-3">
+                <label for="username" class="form-label">{{ 'email'|trans }}</label>
+                <input type="email" class="form-control" id="username" name="_username" value="{{ last_username }}">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">{{ 'password'|trans }}</label>
+                <input type="password" class="form-control" id="password" name="_password">
+            </div>
+
+            <a href="{{ path('app_security_recovery_password') }}">{{ 'forgot'|trans }}</a>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            <button type="submit" class="btn btn-primary">{{ 'login'|trans }}</button>
+        </form>
+
+        <a href="{{ path('connect_google') }}">{{ 'log.in.google'|trans }}</a>
+
+    </div>
+
+
+{% endblock %}

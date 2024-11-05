@@ -1,0 +1,56 @@
+version: '3'
+
+services:
+  database:
+    container_name: database
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    env_file:
+      docker/mysql/mysql.env
+    ports:
+      - '3307:3306'
+    volumes:
+      - ./docker/mysql/data:/var/lib/mysql
+  cache:
+    image: redis:6.0-alpine
+    container_name: 'cache'
+    restart: always
+    ports:
+      - '6380:6379'
+    volumes:
+      - ./docker/cache/data:/data
+  rabbitmq:
+    image: rabbitmq:3.10
+    container_name: 'rabbitmq'
+    ports:
+      - '5673:5672'
+    volumes:
+      - ./docker/rabbitmq/data/:/var/lib/rabbitmq/
+  php:
+    container_name: php
+    build:
+      context: docker/php
+    ports:
+      - '8080:80'
+    extra_hosts:
+      - "ng-mysymfony.com:127.0.1.1" #host and ip
+    volumes:
+      - .:/var/www/ng-mysymfony
+    depends_on:
+      - database
+      - cache
+      - rabbitmq
+  nodejs:
+    build:
+      context: docker/nodejs
+    container_name: nodejs
+    volumes:
+      - .:/var/www/ng-mysymfony
+    ports:
+      - "3000:3000"
+    entrypoint: sh "./docker/nodejs/init.sh"
+#volumes:
+####> doctrine/doctrine-bundle ###
+#  database_data:
+####< doctrine/doctrine-bundle ###

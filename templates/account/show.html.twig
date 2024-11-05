@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AccountController!{% endblock %}
+
+{% block body %}
+    <div class="example-wrapper">
+        <h1>{{ 'account details'|trans }} ✅</h1>
+        <h3>{{ 'owner'|trans }}</h3>
+        <p>{{ account.owner.email }}</p>
+
+        <h3>{{ 'photo'|trans }}</h3>
+        {% if image is defined %}
+            <img src="{{ asset(uploads_account_image ~ image) | imagine_filter('my_thumb') }}" alt="account avatar"/>
+        {% else %}
+            <img src="{{ asset(uploads_account_image ~ 'default.png') | imagine_filter('my_thumb') }}"/>
+        {% endif %}
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <tr scope="row">
+                    <th>{{ 'id'|trans }}</th>
+                    <th>{{ 'first name'|trans }}</th>
+                    <th>{{ 'last name'|trans }}</th>
+                    <th>{{ 'email'|trans }}</th>
+                    <th>{{ 'company name'|trans }}</th>
+                    <th>{{ 'position'|trans }}</th>
+                    <th>{{ 'country'|trans }}</th>
+                    <th>{{ 'city'|trans }}</th>
+                    <th>{{ 'street.1'|trans }}</th>
+                    <th>{{ 'street.2'|trans }}</th>
+                    <th>{{ 'zip'|trans }}</th>
+                    <th>{{ 'created'|trans }}</th>
+                    <th>{{ 'updated'|trans }}</th>
+                </tr>
+                <tr scope="row">
+                    <td>{{ account.id }}</td>
+                    <td>{{ account.firstname|capitalize }}</td>
+                    <td>{{ account.lastname|capitalize }}</td>
+                    <td>{{ account.email }}</td>
+                    <td>{{ account.companyname|capitalize }}</td>
+                    <td>{{ account.position|capitalize }}</td>
+                    {% if account.address %}
+                        {% if account.address.country %}
+                            <td>{{ account.address.country.name|capitalize }}</td>
+                        {% endif %}
+                        {% if account.address.city %}
+                            <td>{{ account.address.city.name|capitalize }}</td>
+                        {% endif %}
+                        <td>{{ account.address.street1|capitalize }}</td>
+                        <td>{{ account.address.street2|capitalize }}</td>
+                        <td>{{ account.address.zip }}</td>
+                    {% else %}
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    {% endif %}
+                    <td>{{ account.createdat|date('d-m-Y H:m:s') }}</td>
+                    <td>{{ account.updatedat|date('d-m-Y H:m:s') }}</td>
+                </tr>
+            </table>
+        </div>
+
+        <h3>{{ 'phone numbers'|trans }}</h3>
+
+        {# table body #}
+        <table class="table">
+            {% for phone in pagination %}
+                <tr scope="col">
+                    <th>Number #{{ pagination.currentPageNumber }}</th>
+                </tr>
+                <tr class="row" {% if loop.index is odd %}class="color"{% endif %}>
+                    <td>{{ phone.number }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        {# display navigation #}
+        <div class="navigation">
+            {{ knp_pagination_render(pagination, '@KnpPaginator/Pagination/bootstrap_v5_pagination.html.twig') }}
+        </div>
+
+        <a href="{{ path('app_account_edit', {id: account.slug}) }}">{{ 'edit'|trans }}</a>
+        <a href="{{ path('app_account_delete', {id: account.slug}) }}">{{ 'delete'|trans }}</a>
+    </div>
+{% endblock %}

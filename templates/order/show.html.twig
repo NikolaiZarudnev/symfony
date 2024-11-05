@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+{% from 'macros.html.twig' import order_status as order_status %}
+
+{% block title %}Hello OrderController!{% endblock %}
+
+{% block body %}
+    <div class="home-my-container home-content-col">
+        <h1>{{ 'order.show'|trans }}</h1>
+
+        <div class="home-content-col">
+            <div class="home-content-col">
+                <span>Order Id: {{ order.id }}</span>
+                <span id="order-total-cost"
+                      data-order-total-cost-text="{{ 'order.total.cost'|trans }}">{{ 'order.total.cost'|trans }}: ${{ order.totalCost / 100 }}</span>
+                <span id="order-status"
+                      data-order-id="{{ order.id }}"
+                      data-status-paid-text="{{ 'paid'|trans }}"
+                      data-status-cancelled-text="{{ 'cancelled'|trans }}"
+                      data-status-processing-text="{{ 'processing'|trans }}"
+                >{{ order_status(order.status) }}</span>
+
+                <a class="order-refund" href="#"
+                   data-toggle="modal"
+                   data-target="#order-refund-modal"
+                   data-order-id="{{ order.id }}"
+                >
+                    {{ 'refund'|trans }}
+                </a>
+            </div>
+
+            {% set products = order.products is defined ? order.products :order.productsDTO %}
+
+            {% for product in products %}
+                <div id="product-{{ product.id }}" style="border: solid">
+                    <span>Id: {{ product.id }}</span>
+                    <span>{{ 'product.name'|trans }}: {{ product.name }}</span>
+                    <span>{{ 'product.cost'|trans }}: ${{ product.cost / 100 }}</span>
+                    <span>{{ 'product.cost'|trans }}: ${{ product.cost / 100 }}</span>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {{ block("order_refund_modal", "modals.html.twig") }}
+{% endblock %}

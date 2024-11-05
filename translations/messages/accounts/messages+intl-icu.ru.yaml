@@ -1,0 +1,54 @@
+accounts list: Список аккаунтов
+accounts: Аккаунты
+account: Аккаунт
+
+num_of_accounts: >-
+    {accounts, plural,
+            =0    {Нет аккаунтов}
+            one  {# аккаунт}
+            few {# аккаунта}
+            other {# аккаунтов}
+        }
+
+account create: Создание аккаунта
+account update: Редактирование аккаунта
+account details: Подробности аккаунта
+owner: Создатель
+photo: Фото
+image: Изображение
+
+changed:
+    acc: Последний измененный аккаунт
+
+id: Идентификатор
+first name: Имя
+last name: Фамилия
+full name: Полное имя
+email: Электронная почта
+sex: Пол
+male: Мужской
+female: Женский
+dont know: Не знаю
+country: Страна
+city: Город
+address: Адрес
+street:
+    1: Улица
+    2: Дом
+    street: Улица, дом
+zip: Почтовый индекс
+company name: Название компании
+position: Должность
+add a phone: Добавить телефон
+delete this number: Удалить этот номер
+phones: Телефонные номера
+phone numbers: Телефонные номера
+number: Номер
+created: Создан
+updated: Отредактирован
+
+notify:
+    account created: Аккаунт создан
+    account updated: Аккаунт отредактирован
+    account: Аккаунт
+    deleted at: удален в

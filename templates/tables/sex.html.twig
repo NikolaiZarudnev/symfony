@@ -1,0 +1,12 @@
+{#'template' => '<a href="{{ url(\'employee.edit\', {id: row.id}) }}">{{ row.firstName }} {{ row.lastName }}</a>',#}
+
+{% if value is constant('App\\Entity\\Account::ACCOUNT_SEX_MALE') %}
+    <span style="color: rgba(132,224,255,0.95)">{{ 'male'|trans }}</span>
+{% endif %}
+{% if value is constant('App\\Entity\\Account::ACCOUNT_SEX_FEMALE') %}
+    <span style="color: rgba(241,113,255,0.95)">{{ 'female'|trans }}</span>
+{% endif %}
+{% if value is constant('App\\Entity\\Account::ACCOUNT_SEX_NOT_FOUND') %}
+    <span style="color: rgba(176,176,176,0.95)">{{ 'unknown'|trans }}</span>
+{% endif %}
+

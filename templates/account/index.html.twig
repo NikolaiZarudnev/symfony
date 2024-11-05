@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+{% from 'macros.html.twig' import set_class as set_class %}
+{% block title %}Accounts!{% endblock %}
+{% form_theme searchForm 'bootstrap_5_layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="example-wrapper">
+        <div class="mb-3 form-control-sm">
+            {{ form_start(searchForm) }}
+            <div class="my-custom-class-for-errors">
+                {{ form_errors(searchForm) }}
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    {{ form_row(searchForm.firstName) }}
+                </div>
+                <div class="col">
+                    {{ form_row(searchForm.lastName) }}
+                </div>
+                <div class="row">
+                    {{ form_row(searchForm.email) }}
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(searchForm.country) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(searchForm.address) }}
+                    </div>
+                </div>
+            </div>
+
+            {{ form_end(searchForm) }}
+        </div>
+
+
+        <a href="{{ path('app_account_download_csv', {searchJson: searchJson}) }}">{{ 'download.accounts.csv'|trans }}</a>
+        <a href="{{ path('app_account_download_pdf', {searchJson: searchJson}) }}">{{ 'download.accounts.pdf'|trans }}</a>
+
+
+        <h1>{{ 'accounts list'|trans }}</h1>
+        <div class="table-responsive">
+            <table class="table">
+                <tr scope="col">
+                    <th>{{ 'id'|trans }}</th>
+                    <th>{{ 'first name'|trans }}</th>
+                    <th>{{ 'last name'|trans }}</th>
+                    <th>{{ 'email'|trans }}</th>
+
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                {% for account in accounts %}
+                        <tr {{ set_class(
+                            "user-row table-secondary", loop.index is not odd) }}>
+                            <td>{{ account.id }}</td>
+                            <td>{{ account.firstname|capitalize }}</td>
+                            <td>{{ account.lastname|capitalize }}</td>
+                            <td>{{ account.email|email(account.email) }}</td>
+
+                            <td><a href="{{ path('app_account_show', {id: account.slug}) }}">{{ 'show'|trans }}</a></td>
+                            <td><a href="{{ path('app_account_edit', {id: account.slug}) }}">{{ 'edit'|trans }}</a></td>
+                            <td><a href="{{ path('app_account_delete', {id: account.slug}) }}">{{ 'delete'|trans }}</a></td>
+                        </tr>
+
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}

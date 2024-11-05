@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+{% from 'macros.html.twig' import order_status as order_status %}
+
+{% set products = order.products is defined ? order.products : order.productsDTO %}
+
+{% block title %}Hello OrderController!{% endblock %}
+
+{% block body %}
+    <div class="home-my-container home-content-col">
+        <h1>{{ 'cart'|trans }}</h1>
+        {% if products is empty %}
+            <div>{{ 'cart.empty'|trans }}</div>
+        {% else %}
+            <div class="home-content-col">
+                <span>Order Id: {{ order.id }}</span>
+                <span id="order-total-cost"
+                      data-order-total-cost-text="{{ 'order.total.cost'|trans }}">{{ 'order.total.cost'|trans }}: ${{ order.totalCost / 100 }}</span>
+
+                <form method="post" action="{{ path('app_stripe') }}">
+                    {% if order.totalCost > 0 %}
+                        <button class="btn btn-success" type="submit">{{ 'buy'|trans }}</button>
+                    {% endif %}
+                </form>
+            </div>
+
+
+            {% for product in products %}
+                <div id="product-{{ product.id }}" class="home-content-row" style="border: solid">
+                    <span>Id: {{ product.id }}</span>
+                    <span>{{ 'product.name'|trans }}: {{ product.name }}</span>
+                    <span>{{ 'product.cost'|trans }}: ${{ product.cost / 100 }}</span>
+                    <span>{{ 'product.cost'|trans }}: ${{ product.cost / 100 }}</span>
+
+                    <button class="btn remove-product" data-product-id="{{ product.id }}">&times;</button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}

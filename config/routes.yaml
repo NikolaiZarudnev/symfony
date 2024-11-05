@@ -1,0 +1,369 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+    host: 'ng-mysymfony.com'
+#    host: 'fd2d-5-130-20-24.ngrok-free.app'
+    requirements:
+        _locale: 'en|ru'
+    defaults:
+        _locale: 'en'
+
+dashboard:
+    path: /admin
+    controller: App\Controller\Admin\DashboardController::index
+    defaults:
+        _locale: en
+    requirements:
+        _locale: en|ru
+
+app_hello:
+    path: /hello/{name}
+    controller: App\Controller\HelloController::helloName
+    defaults:
+        name: Anon
+
+app_home:
+    path: /
+    controller: App\Controller\HomeController::index
+    defaults:
+        _locale: en
+    requirements:
+        _locale: en|ru
+
+app_account: &app_account
+    path: /{_locale}/account
+    controller: App\Controller\AccountController::index
+    defaults:
+      _locale: en
+    requirements:
+        _locale: en|ru
+
+app_homepage:
+    path: /{_locale}/
+    <<: *app_account
+    defaults:
+        _locale: en
+    requirements:
+        _locale: en|ru
+
+app_account_show:
+    path: /{_locale}/account/show/{id}
+    controller: App\Controller\AccountController::show
+    defaults:
+      _locale: en
+    requirements:
+        _locale: en|ru
+
+app_account_create:
+    path: /{_locale}/account/create/
+    controller: App\Controller\AccountController::create
+    defaults:
+      _locale: en
+    requirements:
+        _locale: en|ru
+
+app_account_edit:
+    path: /{_locale}/account/edit/{id}
+    controller: App\Controller\AccountController::create
+    defaults:
+        id: null
+        _locale: en
+    requirements:
+        _locale: en|ru
+
+app_account_delete:
+    path: /{_locale}/account/delete/{id}
+    controller: App\Controller\AccountController::delete
+    defaults:
+      _locale: en
+    requirements:
+        _locale: en|ru
+
+api_account_delete:
+    path: /api/account/delete/{id}
+    controller: App\Controller\AccountController::apiDelete
+    defaults:
+      _locale: en
+    requirements:
+        _locale: en|ru
+    options:
+        expose: true
+
+app_account_download_csv:
+    path: /{_locale}/account/download_csv/{searchJson}
+    controller: App\Controller\AccountController::downloadAccountsCsv
+    defaults:
+        _locale: en
+    requirements:
+        _locale: en|ru
+
+app_account_download_pdf:
+    path: /{_locale}/account/download_pdf/{searchJson}
+    controller: App\Controller\AccountController::downloadAccountsPdf
+    defaults:
+        _locale: en
+    requirements:
+        _locale: en|ru
+
+
+
+
+app_security_register:
+    path: /{_locale}/register
+    controller: App\Controller\SecurityController::register
+    defaults:
+      _locale: en
+    requirements:
+        _locale: en|ru
+
+app_security_login:
+    path: /{_locale}/login
+    controller: App\Controller\SecurityController::login
+    defaults:
+      _locale: en
+    requirements:
+        _locale: en|ru
+
+app_security_logout:
+    path: /{_locale}/logout
+    controller: App\Controller\SecurityController::logout
+
+app_security_user_activate:
+    path: /{_locale}/activate_user/{code}
+    controller: App\Controller\SecurityController::activateUser
+    defaults:
+        code: null
+        _locale: en
+    requirements:
+        _locale: en|ru
+
+app_security_recovery_password:
+    path: /{_locale}/password_recovery/{code}
+    controller: App\Controller\SecurityController::recoverPassword
+    defaults:
+        code: null
+        _locale: en
+    requirements:
+        _locale: en|ru
+
+
+app_user:
+    path: /{_locale}/user/
+    controller: App\Controller\UserController::index
+    defaults:
+      _locale: en
+    requirements:
+        _locale: en|ru
+    options:
+        expose: true
+
+
+app_user_create:
+    path: /{_locale}/user/create/
+    controller: App\Controller\UserController::create
+    defaults:
+        _locale: en
+    requirements:
+        _locale: en|ru
+
+app_user_edit:
+    path: /{_locale}/user/edit/{id}/
+    controller: App\Controller\UserController::create
+    defaults:
+        id: null
+        _locale: en
+    requirements:
+        _locale: en|ru
+    options:
+        expose: true
+
+api_security_login:
+    path: /api/login/
+    controller: App\Controller\SecurityController::apiLogin
+    defaults:
+        _locale: en
+    requirements:
+        _locale: en|ru
+
+api_user_create:
+    path: /api/user/create/
+    controller: App\Controller\UserController::apiCreate
+    defaults:
+        _locale: en
+    requirements:
+        _locale: en|ru
+    options:
+        expose: true
+    methods: post
+
+api_user_edit:
+    path: /api/user/edit/{id}
+    controller: App\Controller\UserController::apiCreate
+    defaults:
+        id: null
+        _locale: en
+    requirements:
+        _locale: en|ru
+    options:
+        expose: true
+    methods: post
+
+api_user_change_active:
+    path: /api/user/changeActive/{id}
+    controller: App\Controller\UserController::changeActive
+    options:
+        expose: true
+
+api_user_search:
+    path: /api/user/search
+    controller: App\Controller\UserController::apiSearch
+    options:
+        expose: true
+
+
+
+connect_google:
+    path: /connect/google
+    controller: App\Controller\GoogleController::connectAction
+    defaults:
+        _locale: en
+    requirements:
+        _locale: en|ru
+
+connect_google_check:
+    path: /connect/google/check
+    controller: App\Controller\GoogleController::connectCheckAction
+    defaults:
+        _locale: en
+    requirements:
+        _locale: en|ru
+
+app_order:
+    path: /order
+    controller: App\Controller\OrderController::index
+    defaults:
+        _locale: en
+    requirements:
+        _locale: en|ru
+    options:
+        expose: true
+
+app_order_show:
+    path: /order/{id}
+    controller: App\Controller\OrderController::show
+    defaults:
+        _locale: en
+    requirements:
+        _locale: en|ru
+        id: '\d+'
+    options:
+        expose: true
+
+app_cart:
+    path: /cart
+    controller: App\Controller\CartController::index
+    defaults:
+        _locale: en
+    requirements:
+        _locale: en|ru
+    options:
+        expose: true
+
+app_order_refund:
+    path: /order/refund/{id}
+    controller: App\Controller\OrderController::refund
+    defaults:
+        _locale: en
+    requirements:
+        _locale: en|ru
+        id: '\d+'
+
+api_cart_add_product:
+    path: /api/cart-add-product
+    controller: App\Controller\CartController::apiAddProduct
+    defaults:
+        _locale: en
+    requirements:
+        _locale: en|ru
+        id: '\d+'
+    options:
+        expose: true
+
+api_cart_remove_product:
+    path: /api/cart-remove-product
+    controller: App\Controller\CartController::apiRemoveProduct
+    defaults:
+        _locale: en
+    requirements:
+        _locale: en|ru
+        id: '\d+'
+    options:
+        expose: true
+
+api_cart_total:
+    path: /api/cart/total-cost
+    controller: App\Controller\CartController::apiGetTotalCost
+    options:
+        expose: true
+
+api_cart_count_products:
+    path: /api/cart/count-products
+    controller: App\Controller\CartController::apiGetCountProducts
+    options:
+        expose: true
+
+api_order_status:
+    path: /api/order/status
+    controller: App\Controller\OrderController::apiGetStatus
+    options:
+        expose: true
+
+api_orders_between_dates:
+    path: /api/order/between-dates
+    controller: App\Controller\OrderController::apiGetOrdersBetweenDates
+    options:
+        expose: true
+
+
+
+
+app_product:
+    path: /product
+    controller: App\Controller\ProductController::index
+    defaults:
+        _locale: en
+    requirements:
+        _locale: en|ru
+
+
+app_stripe:
+    path: /stripe
+    controller: App\Controller\StripeController::index
+    defaults:
+        _locale: en
+    requirements:
+        _locale: en|ru
+
+api_notify:
+    path: /stripe-notify
+    controller: App\Controller\StripeController::stripeNotify
+
+
+api_stripe_create_payment:
+    path: /stripe/create-payment
+    controller: App\Controller\StripeController::createPayment
+    methods: ['POST']
+    options:
+        expose: true
+
+api_stripe_refund:
+    path: /stripe-refund
+    controller: App\Controller\StripeController::refundPayment
+    defaults:
+        _locale: en
+    requirements:
+        _locale: en|ru
+    options:
+        expose: true

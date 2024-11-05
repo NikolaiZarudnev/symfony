@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home!{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="home-my-container">
+
+        <div class="home-left">
+        </div>
+
+        <div class="home-content-col">
+
+            <h3>{{ projectRoot }}</h3>
+            <div class="home-content-row">
+                <div id="flash-notice">
+                </div>
+
+                <div id="account-search" class="home-content-row">
+                    <div class="home-content-col">
+                        <label for="search-global">{{ 'search'|trans }}</label>
+                        <input type="search" class="form-control" id="search-global" name="_search"
+                                                                  placeholder="{{ 'search'|trans }}">
+                        <label for="search-sex">{{ 'sex'|trans }}</label>
+                        <select class="form-control column_filter" id="search-sex" name="_search_sex"
+                                                                data-column="{{ datatable.columnbyname('sex').index }}">
+                            <option value="" selected>{{ 'sex'|trans }}</option>
+                            <option value="1">{{ 'male'|trans }}</option>
+                            <option value="2">{{ 'female'|trans }}</option>
+                            <option value="3">{{ 'unknown'|trans }}</option>
+                        </select>
+                    </div>
+                    <div class="home-content-col">
+                        <label for="search-start-date">{{ 'date.start'|trans }}</label>
+                        <input type="date" class="form-control" id="search-start-date"
+                               data-column="{{ datatable.columnbyname('createdAt').index }}"
+                               name="_search_start_date">
+
+                        <label for="search-end-date">{{ 'date.end'|trans }}</label>
+                        <input type="date" class="form-control" id="search-end-date"
+                               data-column="{{ datatable.columnbyname('createdAt').index }}"
+                               name="_search_end_date">
+                    </div>
+
+
+                </div>
+
+                <div id="accounts" data-settings="{{ datatable_settings(datatable)|e('html_attr') }}">
+                    Loading...
+                </div>
+            </div>
+
+            <div class="home-content-row">
+                {% for i in 0..count %}
+                    <div class="home-square"
+                         style="background-color: {{ random(['#f80d20', '#ea6127', '#ffd633', '#00e336', '#23cbff', '#025aff', '#6400d0']) }}"></div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+        <div class="home-right">
+        </div>
+
+        <div class="home-footer">
+        </div>
+    </div>
+
+    {{ block("delete_modal", "modals.html.twig") }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('account-table') }}
+{% endblock %}

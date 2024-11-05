@@ -1,0 +1,31 @@
+account:
+    fname.not_blank: Please enter an account first name.
+    lname.not_blank: Please enter an account last name.
+    email:
+        not_blank: Please enter an account email.
+        unique: An account with this email already exists.
+        valid: The email is not a valid email.
+    address.valid: The address is not a valid address.
+
+
+
+address.street1.not_blank: Please enter an address street.
+
+phone:
+    number:
+        regex:
+        not_blank: Please enter an phone number.
+
+
+user:
+    email:
+        unique: There is already an user with this email
+
+forms:
+    constraints:
+        email.not_blank: Please enter an email
+        email.unique: There is already an account with this email
+        password.not_blank: Please enter a password
+        password.length: Your password should be at least 6 characters
+        agreeTerms: You need to agree our terms and conditions
+

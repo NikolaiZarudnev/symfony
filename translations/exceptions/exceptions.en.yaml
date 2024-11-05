@@ -1,0 +1,8 @@
+This code should not be reached!: This code should not be reached!
+User account is not activated.: User account is not activated.
+The given "{{ value }}" value is not a valid street.: The given "{{ value }}" value is not a valid street.
+
+No API token provided: No API token provided
+
+invalid:
+    token: Invalid token.

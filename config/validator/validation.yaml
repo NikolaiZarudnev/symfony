@@ -1,0 +1,67 @@
+# config/validator/validation.yaml
+App\Entity\Account:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+                fields: [ email ]
+                message: 'account.email.unique'
+                groups: 'account'
+    properties:
+        firstName:
+            - NotBlank:
+                    message: 'account.fname.not_blank'
+                    groups: 'account'
+        lastName:
+            - NotBlank:
+                    message: 'account.lname.not_blank'
+                    groups: 'account'
+        email:
+            - NotBlank:
+                    message: 'account.email.not_blank'
+                    groups: 'account'
+            - Email:
+                    message: 'account.email.valid'
+                    mode: html5
+                    groups: 'account'
+        address:
+            - Valid:
+
+App\Entity\Address:
+    properties:
+        street1:
+            - NotBlank:
+                    message: 'address.address.not_blank'
+                    groups: [ address ]
+
+App\Entity\Phone:
+    properties:
+        number:
+            - NotBlank:
+                    message: 'phone.number.not_blank'
+                    groups: [ phone ]
+            - Regex:
+                    pattern: '/(\+)?[0-9]+/'
+                    message: 'phone.number.regex'
+                    groups: [ phone ]
+            - Length:
+                min: 10
+                minMessage: 'phone.number.length_min'
+
+App\DTO\UserDTO:
+    constraints:
+        - App\Validator\UniqueValueInEntity:
+                message: 'user.email.unique'
+                entityClass: 'App\Entity\User'
+                field: 'email'
+    properties:
+        email:
+            - NotBlank:
+                    message: 'forms.constraints.email.not_blank'
+            - Email:
+                    message: 'account.email.valid'
+                    mode: html5
+        password:
+            - NotBlank:
+                    message: 'forms.constraints.password.not_blank'
+            - Length:
+                  min: 6
+                  max: 4096

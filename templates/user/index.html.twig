@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+{% from 'macros.html.twig' import set_class, add_class_optional as set_class, add_class_optional %}
+{% block title %}{{ 'users'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="example-wrapper">
+        <h1>{{ 'user list'|trans }}({{ count }}) 🐒</h1>
+        <div class="table-responsive">
+            <table class="table js-user-rating">
+                <tr>
+                    <th>{{ 'id'|trans }}</th>
+                    <th>{{ 'email'|trans }}</th>
+                    <th>{{ 'roles'|trans }}</th>
+                    <th>{{ 'is active'|trans }}</th>
+                    <th></th>
+                </tr>
+                {% for user in pagination %}
+                    <tr {{ set_class("user-row table-secondary", loop.index is not odd) }}>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>
+                            {% for role in user.roles %}
+                                <p>{{ role|role(role)|lower|trans }}</p>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <button type="button"
+                                    class="isActive btn {{ add_class_optional('btn-outline-success', 'btn-outline-danger', user.isActive) }}"
+                                    id="userId-{{ user.id }}"
+                                    data-user-id="{{ user.id }}"
+                            >
+                                {% if user.isActive %}
+                                    {{ 'yes'|trans }}
+                                {% else %}
+                                    {{ 'no'|trans }}
+                                {% endif %}
+                            </button>
+                        </td>
+                        <td><a href="{{ path('app_user_edit', {id: user.id}) }}">{{ 'edit'|trans }}</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {# display navigation #}
+        <div class="navigation pagination">
+            {{ knp_pagination_render(pagination, '@KnpPaginator/Pagination/bootstrap_v5_pagination.html.twig') }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

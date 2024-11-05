@@ -1,0 +1,43 @@
+password recovery: Password recovery
+new password: New password
+register: Register
+login: Login
+logout: Logout
+forgot: Forgot password
+
+id: Id
+email: Email
+password: Password
+
+send email: Send an Email
+agree terms: Agree terms
+
+users: Users
+
+num_of_users: >-
+    {users, plural,
+        =0 {There are no users}
+        one {1 user}
+        other {# users}
+    }
+
+user list: User list
+roles: Roles
+role: Role
+is active: Is active
+activate: Activate
+yes: Yes
+no: No
+
+admin: Admin
+manager: Manager
+small manager: Small Manager
+user: User
+
+
+sign:
+    in:
+        google: Register with Google
+log:
+    in:
+        google: Log in with Google

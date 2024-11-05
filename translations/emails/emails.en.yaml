@@ -1,0 +1,25 @@
+subject:
+    verify: Confirm your email address
+    recovery: Password recovery
+    about:
+        us: About us
+
+template:
+    welcome: Welcome
+    signed:
+        up: You registered with the following email
+    about:
+        us:
+            text: Do you like spicy food?
+
+    click:
+        read:
+            more: Click here to read more
+        create:
+            password: Click here to create new password
+        activate:
+            account: Click here to activate your account
+
+    link:
+        valid:
+            until: this link is valid until

@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ItemController!{% endblock %}
+
+{% block body %}
+
+<div class="home-my-container home-content-col">
+    <h1>{{ 'product.list'|trans }}</h1>
+
+    <div class="home-content-row" style="justify-content: space-between">
+        {% for product in products %}
+            <div style="border: solid">
+                <div>Id: {{ product.id }}</div>
+                <div>Name: {{ product.name }}</div>
+                <div>Cost: ${{ product.cost / 100}}</div>
+                <button type="button"
+                        id="add-product-{{ product.id }}"
+                        class="add-product-to-order"
+                        data-product-id="{{ product.id }}">{{ 'order.add.product' }}</button>
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

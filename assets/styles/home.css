@@ -1,0 +1,153 @@
+@media screen {
+    .home-right {
+        display: flex;
+
+        width: 15rem;
+        height: 50rem;
+    }
+    .home-left {
+        display: flex;
+
+        width: 15rem;
+        height: 50rem;
+    }
+}
+@media (max-width: 1600px) {
+
+    .home-content-col {
+        width: 60%;
+    }
+}
+@media (max-width: 1200px) {
+
+    .home-right {
+        display: flex;
+
+        width: 12rem;
+        height: 50rem;
+    }
+    .home-left {
+        display: flex;
+
+        width: 12rem;
+        height: 50rem;
+    }
+}
+
+@media (max-width: 960px) {
+    .home-right {
+        display: none;
+    }
+    .home-left {
+        display: flex;
+        width: 10rem;
+    }
+    .home-content-col {
+        width: 60%;
+        /*margin-left: auto;*/
+        align-self: center;
+        justify-content: space-between;
+        align-content: space-around;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .home-left {
+        display: none;
+    }
+    .home-content-col {
+        width: 100%;
+    }
+    .home-my-container {
+        justify-content: center
+    }
+}
+
+@media (max-height: 420px) {
+
+    .home-left {
+        max-height: 50%;
+    }
+
+}
+.home-square {
+    max-height: 250px;
+    max-width: 250px;
+    min-height: 150px;
+    min-width: 150px;
+    margin: 5px;
+    background-color: #79dff3;
+}
+
+.home-my-container {
+    display: flex;
+    flex-wrap: wrap;
+
+    width: 100%;
+    height: 100%;
+
+    overflow-y: auto;
+
+}
+
+.home-content-col {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+
+    max-width: 70%;
+
+    overflow-y: auto;
+}
+.home-content-row {
+    display: flex;
+
+    justify-content: start;
+    align-self: self-start;
+    flex-wrap: wrap;
+    flex-direction: row;
+
+    max-width: 100%;
+
+    overflow-y: auto;
+}
+
+.home-left {
+    left: 0;
+    margin-right: auto;
+
+    max-width: 15rem;
+    max-height: 50rem;
+
+    background-color: #8a20a1;
+
+    overflow-y: auto;
+}
+
+.home-right {
+    right: 0;
+    margin-left: auto;
+
+    max-width: 15rem;
+    max-height: 50rem;
+
+    background-color: #eeb344;
+
+    overflow-y: auto;
+}
+
+.home-footer {
+    flex-grow: 0;
+    align-self: end;
+    overflow-y: auto;
+
+    height: 100px;
+    width: 100%;
+    bottom: 0;
+    margin-top: 20rem;
+    background-color: #983a3a;
+}
+

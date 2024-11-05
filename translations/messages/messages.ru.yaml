@@ -1,0 +1,18 @@
+symfony is great: symfony — прекрасен
+
+session: Сессия
+cache: Кэш
+
+search: Поиск
+submit: Отправить
+create: Создать
+update: Обновить
+add: Добавить
+show: Подробности
+edit: Редактировать
+delete: Удалить
+
+download:
+    accounts:
+        csv: Скачать список учетных записей .csv
+        pdf: Скачать список учетных записей .pdf

@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+{% from 'macros.html.twig' import order_status as order_status %}
+{% block title %}Hello OrderController!{% endblock %}
+
+{% block body %}
+    <div class="home-my-container home-content-col">
+        <h1>{{ 'order.list'|trans }}</h1>
+        {% if orders is not empty %}
+            {% for order in orders %}
+                <div class="home-content-col">
+                    <div class="home-content-col">
+                        <span>Order Id: {{ order.id }}</span>
+                        <span>{{ 'order.total.cost'|trans }}: ${{ order.totalCost / 100 }}</span>
+                        <span>{{ order_status(order.status) }}</span>
+                        {% if order.status is constant('App\\Entity\\Order::PROCESSING') %}
+                            <form method="post" action="{{ path('app_stripe') }}">
+                                <button type="submit">{{ 'buy'|trans }}</button>
+                            </form>
+                        {% else %}
+                            <a class="order-refund" href="#"
+                               data-toggle="modal"
+                               data-target="#order-refund-modal"
+                               data-order-id="{{ order.id }}"
+                            >
+                                {{ 'refund'|trans }}
+                            </a>
+                        {% endif %}
+                    </div>
+
+                    {% set products = order.products is defined ? order.products :order.productsDTO   %}
+
+                    {% for product in products %}
+                        <div style="border: solid">
+                            <span>Id: {{ product.id }}</span>
+                            <span>{{ 'product.name'|trans }}: {{ product.name }}</span>
+                            <span>{{ 'product.cost'|trans }}: ${{ product.cost / 100}}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <div>{{ 'order.empty'|trans }}</div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{# templates/security/emails/auth_mail.html.twig #}
+{% trans_default_domain 'emails' %}
+{% from 'macros.html.twig' import trans_date as trans_date %}
+{% block email %}
+    <h1>{{ 'template.welcome'|trans({}, "emails", user_locale) }}  {{ username }}!</h1>
+
+    <p>
+        {{ 'template.signed.up'|trans({}, "emails", user_locale) }}:
+    </p>
+    <p><code>{{ email.to[0].address }}</code></p>
+
+    <a href="{{ link }}">
+        {{ 'template.click.activate.account'|trans({}, "emails", user_locale) }}
+    </a>
+    <p>
+        {{ 'template.link.valid.until'|trans({}, "emails", user_locale) }}
+        {{ trans_date(expiration_date, user_locale) }}
+    </p>
+{% endblock %}
